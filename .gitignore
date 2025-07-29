@@ -11,3 +11,6 @@ wheels/
 
 # ODS Input files
 *.ods
+
+# uv
+uv.lock
