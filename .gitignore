@@ -9,8 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-# ODS Input files
-*.ods
-
 # uv
 uv.lock
+
+# odf-lockfile
+.~lock*

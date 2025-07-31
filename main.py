@@ -2,6 +2,8 @@ import sys
 import pandas as pd
 
 from src.worker import Worker
+from src.slots import Slots
+from src.engine import Engine
 
 
 def main() -> None:
@@ -26,9 +28,6 @@ def main() -> None:
         print(f"Error reading ODS file: {e}")
         sys.exit(1)
 
-    print(ods_file.dtypes)
-    print(ods_file)
-
     # Create a list of Worker objects
     workers: list[Worker] = []
     for index, row in ods_file.iterrows():
@@ -45,9 +44,15 @@ def main() -> None:
 
     # Print the workers
     for worker in workers:
-        print(worker)
         print(worker.to_dict())
         print()
+
+
+    slots = Slots(2025, "Aug")
+    workdays_and_slots = slots.get_workdays_and_slots()
+
+    engine = Engine(workers, workdays_and_slots)
+
 
 if __name__ == "__main__":
     main()

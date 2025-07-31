@@ -134,6 +134,7 @@ class Slots:
 #     return values
 
 # slots = Slots(2025, "Aug")
+
 # workdays_and_slots = slots.get_workdays_and_slots()
 # print(workdays_and_slots)
 
