@@ -1,6 +1,7 @@
 import datetime
 from json import dumps as jd
 
+
 class Slots:
     """
     A class to manage slots for different days of the week.
@@ -9,6 +10,7 @@ class Slots:
         DEFAULT_SHIFTS (dict): A dictionary of default shifts for each day of the week.
         MONTHS (list): A list of valid month abbreviations.
     """
+
     DEFAULT_SHIFTS = {
         "Montag": [
             {"start_time": "15:30:00", "taken": None},
@@ -31,8 +33,20 @@ class Slots:
             {"start_time": "19:30:00", "taken": None},
         ],
     }
-    MONTHS = ["jan", "feb", "mar", "apr", "may", 
-              "jun", "jul", "aug", "sep", "oct", "nov", "dec",]
+    MONTHS = [
+        "jan",
+        "feb",
+        "mar",
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep",
+        "oct",
+        "nov",
+        "dec",
+    ]
 
     def __init__(self, year: int, month: str, shifts: dict = None):
         """
@@ -65,12 +79,21 @@ class Slots:
             list: A list of tuples containing the date and weekday.
         """
         workdays = []
-        weekdays = ["Montag", "Dienstag", "Mittwoch", 
-                    "Donnerstag", "Freitag", "Samstag", "Sonntag",]
+        weekdays = [
+            "Montag",
+            "Dienstag",
+            "Mittwoch",
+            "Donnerstag",
+            "Freitag",
+            "Samstag",
+            "Sonntag",
+        ]
 
-        month_name  = datetime.datetime.strptime(f"{month}", "%b")
+        month_name = datetime.datetime.strptime(f"{month}", "%b")
         month_nr = int(month_name.strftime("%m"))
-        last_day_of_month =  datetime.date(year, month_nr, 1).replace(day=1) - datetime.timedelta(days=1)
+        last_day_of_month = datetime.date(year, month_nr, 1).replace(
+            day=1
+        ) - datetime.timedelta(days=1)
 
         for day in range(1, int(last_day_of_month.day) + 1):
             weekday = datetime.datetime(year, month_nr, day).weekday()
@@ -95,7 +118,8 @@ class Slots:
                 "nr_slots": len(shifts_per_weekday.get(workday[1], [])),
                 "slots": shifts_per_weekday.get(workday[1], []),
             }
-            for workday in workdays if len(shifts_per_weekday.get(workday[1], [])) > 0
+            for workday in workdays
+            if len(shifts_per_weekday.get(workday[1], [])) > 0
         }
 
     def get_workdays_and_slots(self) -> dict:

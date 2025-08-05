@@ -33,25 +33,25 @@ def main() -> None:
     for index, row in ods_file.iterrows():
         worker = Worker(
             name=row["Name [Name]"],
-            no_go_schichten=row["No-Go-Schichten [Wochentag-Startstunde (zBsp.: Montag-1600)]"],
+            no_go_schichten=row[
+                "No-Go-Schichten [Wochentag-Startstunde (zBsp.: Montag-1600)]"
+            ],
             frei_tage=row["Frei-Tage [Datum1, Datum2 (zBsp.: 15.08., 17.08.)]"],
-            fix_tage=row["Fix-Tage [Wochentag1, Wochentag2 (zBsp.: Mittwoch, Donnerstag)]"],
+            fix_tage=row[
+                "Fix-Tage [Wochentag1, Wochentag2 (zBsp.: Mittwoch, Donnerstag)]"
+            ],
             anz_tage=row["Anz-Tage [Min.-Max. (zBsp.: 0-4)]"],
             springer=row["Springer [Ja/Nein]"],
-            folgetag=row["Folgetag [Ja/Nein]"]
+            folgetag=row["Folgetag [Ja/Nein]"],
         )
-        workers.append(worker)
-
-    # Print the workers
-    for worker in workers:
-        print(worker.to_dict())
-        print()
-
+        workers.append(worker.to_dict())
 
     slots = Slots(2025, "Aug")
     workdays_and_slots = slots.get_workdays_and_slots()
 
     engine = Engine(workers, workdays_and_slots)
+
+    print(engine.to_dict())
 
 
 if __name__ == "__main__":
